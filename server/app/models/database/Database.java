@@ -5,5 +5,5 @@ import models.datatypes.Flight;
 public interface Database {
 
     public long insertFlight(Flight flight);
-    public long select();
+    public long selectFlightByDepTime(int depTime);
 }

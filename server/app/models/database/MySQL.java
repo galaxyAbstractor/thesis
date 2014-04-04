@@ -1,6 +1,5 @@
 package models.database;
 
-import com.mysql.jdbc.*;
 import models.datatypes.Flight;
 import play.db.DB;
 
@@ -9,13 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class MySQL implements Database {
-
-	private String server = "jdbc:mysql://localhost:3306/testdb";
-	private String user = "root";
-	private String password = "";
-
 	Connection conn = null;
-
 
 	public MySQL() {
 		conn = DB.getConnection();
@@ -73,7 +66,25 @@ public class MySQL implements Database {
 	}
 
 	@Override
-	public long select() {
-		return 0;
+	public long selectFlightByDepTime(int depTime) {
+		try {
+			PreparedStatement pst = conn.prepareStatement("SELECT * FROM ontime WHERE DepTime = ?");
+			pst.setInt(1, depTime);
+			pst.executeQuery();
+			pst.close();
+		} catch (SQLException e) {
+			System.err.println("Could not create statement");
+			e.printStackTrace();
+
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return System.currentTimeMillis();
 	}
+
 }
