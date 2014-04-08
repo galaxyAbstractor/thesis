@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
+import models.database.DB4o;
 import models.database.Database;
 import models.database.MySQL;
 import models.datatypes.Flight;
@@ -17,9 +18,11 @@ public class Select extends Controller {
 		times[0] = time;
 		times[1] = reqArrTime;
 
-		Database db = new MySQL();
+		//Database db = new MySQL();
+		Database db = new DB4o();
 
 		times[2] = db.selectFlightByDepTime(depTime);
+		if (times[2] == -1) return internalServerError();
 		return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + "]");
 	}
 
