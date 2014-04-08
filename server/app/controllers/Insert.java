@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import models.database.DB4o;
 import models.database.Database;
+import models.database.Hibernate;
 import models.database.MySQL;
 import models.datatypes.Flight;
 import play.data.DynamicForm;
@@ -23,8 +24,9 @@ public class Insert extends Controller {
 		Gson gson = new Gson();
 		Flight flight = gson.fromJson(json, Flight.class);
 
-		Database db = new MySQL();
+		//Database db = new MySQL();
 		//Database db = new DB4o();
+		Database db = new Hibernate();
 
 		times[2] = db.insertFlight(flight);
 

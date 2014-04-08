@@ -17,7 +17,11 @@ public class MySQL implements Database {
 	@Override
 	public long insertFlight(Flight flight) {
 		try {
-			PreparedStatement pst = conn.prepareStatement("INSERT INTO ontime VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+			PreparedStatement pst = conn.prepareStatement("INSERT INTO ontime (Year, Month, DayofMonth, DayOfWeek," +
+					"DepTime, CRSDepTime, ArrTime, CRSArrTime, UniqueCarrier, FlightNum, TailNum, ActualElapsedTime, " +
+					"CRSElapsedTime, AirTime, ArrDelay, DepDelay, Origin, Dest, Distance, TaxiIn, TaxiOut, Cancelled, " +
+					"CancellationCode, Diverted, CarrierDelay, WeatherDelay, NASDelay, SecurityDelay," +
+					"LateAircraftDelay) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
 					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			pst.setInt(1, flight.getYear());
 			pst.setInt(2, flight.getMonth());

@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import models.database.DB4o;
 import models.database.Database;
+import models.database.Hibernate;
 import models.database.MySQL;
 import models.datatypes.Flight;
 import play.data.DynamicForm;
@@ -19,7 +20,8 @@ public class Select extends Controller {
 		times[1] = reqArrTime;
 
 		//Database db = new MySQL();
-		Database db = new DB4o();
+		//Database db = new DB4o();
+		Database db = new Hibernate();
 
 		times[2] = db.selectFlightByDepTime(depTime);
 		if (times[2] == -1) return internalServerError();

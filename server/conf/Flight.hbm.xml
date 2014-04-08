@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="models.datatypes.Flight" table="ontime">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="id" type="int" column="Id">
+            <generator class="increment"/>
+        </id>
+        <property name="year" column="Year"/>
+        <property name="month" column="Month"/>
+        <property name="dayOfMonth" column="DayOfMonth"/>
+        <property name="dayOfWeek" column="DayOfWeek"/>
+        <property name="depTime" column="DepTime"/>
+        <property name="CRSDepTime" column="CRSDepTime"/>
+        <property name="arrTime" column="ArrTime"/>
+        <property name="CRSArrTime" column="CRSArrTime"/>
+        <property name="uniqueCarrier" column="UniqueCarrier"/>
+        <property name="flightNum" column="FlightNum"/>
+        <property name="tailNum" column="TailNum"/>
+        <property name="actualElapsedTime" column="ActualElapsedTime"/>
+        <property name="CRSElapsedTime" column="CRSElapsedTime"/>
+        <property name="airTime" column="AirTime"/>
+        <property name="arrDelay" column="ArrDelay"/>
+        <property name="depDelay" column="DepDelay"/>
+        <property name="origin" column="Origin"/>
+        <property name="dest" column="Dest"/>
+        <property name="distance" column="Distance"/>
+        <property name="taxiIn" column="TaxiIn"/>
+        <property name="taxiOut" column="TaxiOut"/>
+        <property name="cancelled" column="Cancelled"/>
+        <property name="cancellationCode" column="CancellationCode"/>
+        <property name="diverted" column="Diverted"/>
+        <property name="carrierDelay" column="CarrierDelay"/>
+        <property name="weatherDelay" column="WeatherDelay"/>
+        <property name="NASDelay" column="NASDelay"/>
+        <property name="securityDelay" column="SecurityDelay"/>
+        <property name="lateAircraftDelay" column="LateAircraftDelay"/>
+    </class>
+</hibernate-mapping>

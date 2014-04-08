@@ -19,5 +19,5 @@ to correspond with the absolute path to the .csv.
 11. To shutdown the server after executing ```play start```, press Ctrl-D, open a terminal and terminate the
 java process of the server, and then remove the RUNNING_PID from the server directory.
 
-**Note: DB4o does not run on development (the ```play run``` command) and has to be tested in production
+** Note: DB4o does not run on development (the ```play run``` command) and has to be tested in production
 (the ```play start``` command) **

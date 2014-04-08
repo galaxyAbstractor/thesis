@@ -1,6 +1,12 @@
 package models.datatypes;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Flight {
+
+	private int id;
 	private int year;
 	private int month;
 	private int dayOfMonth;
@@ -30,6 +36,14 @@ public class Flight {
 	private int NASDelay;
 	private int securityDelay;
 	private int lateAircraftDelay;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getYear() {
 		return year;
