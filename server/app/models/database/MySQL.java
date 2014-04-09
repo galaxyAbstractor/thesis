@@ -57,7 +57,7 @@ public class MySQL implements Database {
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");
 			e.printStackTrace();
-
+			return -1;
 		} finally {
 			try {
 				conn.close();
@@ -79,7 +79,7 @@ public class MySQL implements Database {
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");
 			e.printStackTrace();
-
+			return -1;
 		} finally {
 			try {
 				conn.close();

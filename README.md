@@ -21,3 +21,5 @@ java process of the server, and then remove the RUNNING_PID from the server dire
 
 ** Note: DB4o does not run on development (the ```play run``` command) and has to be tested in production
 (the ```play start``` command) **
+
+Relationships implemented in branch 'relational'
