@@ -1,5 +1,6 @@
 package models.database;
 
+import models.datatypes.Airport;
 import models.datatypes.Flight;
 import play.db.DB;
 
@@ -15,9 +16,40 @@ public class MySQL implements Database {
 	}
 
 	@Override
+	public long insertAirport(Airport airport) {
+		try {
+			PreparedStatement pst = conn.prepareStatement("INSERT INTO airports (iata, airport, city, state," +
+					"country, lat, `long`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			pst.setString(1, airport.getIata());
+			pst.setString(2, airport.getAirport());
+			pst.setString(3, airport.getCity());
+			pst.setString(4, airport.getState());
+			pst.setString(5, airport.getCountry());
+			pst.setDouble(6, airport.getLat());
+			pst.setDouble(7, airport.getLongitude());
+
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			System.err.println("Could not create statement");
+			e.printStackTrace();
+			return -1;
+
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return System.currentTimeMillis();
+	}
+
+	@Override
 	public long insertFlight(Flight flight) {
 		try {
-			PreparedStatement pst = conn.prepareStatement("INSERT INTO ontime (Year, Month, DayofMonth, DayOfWeek," +
+			PreparedStatement pst = conn.prepareStatement("INSERT INTO ontime (Year, Month, DayOfMonth, DayOfWeek," +
 					"DepTime, CRSDepTime, ArrTime, CRSArrTime, UniqueCarrier, FlightNum, TailNum, ActualElapsedTime, " +
 					"CRSElapsedTime, AirTime, ArrDelay, DepDelay, Origin, Dest, Distance, TaxiIn, TaxiOut, Cancelled, " +
 					"CancellationCode, Diverted, CarrierDelay, WeatherDelay, NASDelay, SecurityDelay," +
@@ -39,8 +71,8 @@ public class MySQL implements Database {
 			pst.setInt(14, flight.getAirTime());
 			pst.setInt(15, flight.getArrDelay());
 			pst.setInt(16, flight.getDepDelay());
-			pst.setString(17, flight.getOrigin());
-			pst.setString(18, flight.getDest());
+			pst.setString(17, flight.getOrigin().getIata());
+			pst.setString(18, flight.getDest().getIata());
 			pst.setInt(19, flight.getDistance());
 			pst.setInt(20, flight.getTaxiIn());
 			pst.setInt(21, flight.getTaxiOut());
@@ -53,6 +85,28 @@ public class MySQL implements Database {
 			pst.setInt(28, flight.getSecurityDelay());
 			pst.setInt(29, flight.getLateAircraftDelay());
 			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			System.err.println("Could not create statement");
+			e.printStackTrace();
+			return -1;
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return System.currentTimeMillis();
+	}
+
+	@Override
+	public long selectFlightByDepTime(int depTime) {
+		try {
+			PreparedStatement pst = conn.prepareStatement("SELECT * FROM ontime WHERE DepTime = ?");
+			pst.setInt(1, depTime);
+			pst.executeQuery();
 			pst.close();
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");
@@ -70,10 +124,11 @@ public class MySQL implements Database {
 	}
 
 	@Override
-	public long selectFlightByDepTime(int depTime) {
+	public long joinSelectFlightByDest(String dest) {
 		try {
-			PreparedStatement pst = conn.prepareStatement("SELECT * FROM ontime WHERE DepTime = ?");
-			pst.setInt(1, depTime);
+			PreparedStatement pst = conn.prepareStatement("SELECT * FROM airports INNER JOIN ontime ON " +
+					"(airports.iata = ontime.Dest) WHERE airports.iata = ?");
+			pst.setString(1, dest);
 			pst.executeQuery();
 			pst.close();
 		} catch (SQLException e) {

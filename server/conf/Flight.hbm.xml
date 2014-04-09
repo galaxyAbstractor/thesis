@@ -27,8 +27,10 @@
         <property name="airTime" column="AirTime"/>
         <property name="arrDelay" column="ArrDelay"/>
         <property name="depDelay" column="DepDelay"/>
-        <property name="origin" column="Origin"/>
-        <property name="dest" column="Dest"/>
+        <many-to-one name="origin" column="Origin"
+                     class="models.datatypes.Airport"/>
+        <many-to-one name="dest" column="Dest"
+                     class="models.datatypes.Airport"/>
         <property name="distance" column="Distance"/>
         <property name="taxiIn" column="TaxiIn"/>
         <property name="taxiOut" column="TaxiOut"/>

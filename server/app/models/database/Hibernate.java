@@ -1,5 +1,6 @@
 package models.database;
 
+import models.datatypes.Airport;
 import models.datatypes.Flight;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -30,6 +31,11 @@ public class Hibernate implements Database {
 	}
 
 	@Override
+	public long insertAirport(Airport airport) {
+		return 0;
+	}
+
+	@Override
 	public long insertFlight(Flight flight) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -48,5 +54,10 @@ public class Hibernate implements Database {
 		List list = query.list();
 		session.close();
 		return System.currentTimeMillis();
+	}
+
+	@Override
+	public long joinSelectFlightByDest(String dest) {
+		return 0;
 	}
 }

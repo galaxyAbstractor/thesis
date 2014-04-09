@@ -6,6 +6,7 @@ import com.db4o.ObjectSet;
 import com.db4o.reflect.generic.GenericClass;
 import com.db4o.reflect.generic.GenericObject;
 import com.db4o.reflect.generic.GenericReflector;
+import models.datatypes.Airport;
 import models.datatypes.Flight;
 import play.Logger;
 
@@ -21,6 +22,11 @@ public class DB4o implements Database {
 	public static void closeDB() {
 		db.close();
 		Logger.info("DB4o closed");
+	}
+
+	@Override
+	public long insertAirport(Airport airport) {
+		return 0;
 	}
 
 	@Override
@@ -47,5 +53,10 @@ public class DB4o implements Database {
 			return -1;
 		}
 		return System.currentTimeMillis();
+	}
+
+	@Override
+	public long joinSelectFlightByDest(String dest) {
+		return 0;
 	}
 }

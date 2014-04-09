@@ -19,11 +19,26 @@ public class Select extends Controller {
 		times[0] = time;
 		times[1] = reqArrTime;
 
-		//Database db = new MySQL();
+		Database db = new MySQL();
 		//Database db = new DB4o();
-		Database db = new Hibernate();
+		//Database db = new Hibernate();
 
 		times[2] = db.selectFlightByDepTime(depTime);
+		if (times[2] == -1) return internalServerError();
+		return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + "]");
+	}
+
+	public static Result joinFlightByDest(String dest, Long time) {
+		Long reqArrTime = System.currentTimeMillis();
+		Long[] times = new Long[3];
+		times[0] = time;
+		times[1] = reqArrTime;
+
+		Database db = new MySQL();
+		//Database db = new DB4o();
+		//Database db = new Hibernate();
+
+		times[2] = db.joinSelectFlightByDest(dest);
 		if (times[2] == -1) return internalServerError();
 		return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + "]");
 	}

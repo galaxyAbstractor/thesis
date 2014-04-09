@@ -10,6 +10,7 @@
 
         <property name="hibernate.connection.datasource">DefaultDS</property>
 
+        <mapping resource="Airport.hbm.xml"/>
         <mapping resource="Flight.hbm.xml"/>
 
     </session-factory>

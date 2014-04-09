@@ -1,6 +1,7 @@
 package net.pixomania.dbtest.client.datatypes;
 
 public class Flight {
+	private int id;
 	private int year;
 	private int month;
 	private int dayOfMonth;
@@ -17,8 +18,8 @@ public class Flight {
 	private int airTime;
 	private int arrDelay;
 	private int depDelay;
-	private String origin;
-	private String dest;
+	private Airport origin;
+	private Airport dest;
 	private int distance;
 	private int taxiIn;
 	private int taxiOut;
@@ -30,6 +31,14 @@ public class Flight {
 	private int NASDelay;
 	private int securityDelay;
 	private int lateAircraftDelay;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getYear() {
 		return year;
@@ -159,19 +168,19 @@ public class Flight {
 		this.depDelay = depDelay;
 	}
 
-	public String getOrigin() {
+	public Airport getOrigin() {
 		return origin;
 	}
 
-	public void setOrigin(String origin) {
+	public void setOrigin(Airport origin) {
 		this.origin = origin;
 	}
 
-	public String getDest() {
+	public Airport getDest() {
 		return dest;
 	}
 
-	public void setDest(String dest) {
+	public void setDest(Airport dest) {
 		this.dest = dest;
 	}
 

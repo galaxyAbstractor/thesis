@@ -1,12 +1,14 @@
 package net.pixomania.dbtest.client;
 
 import com.google.gson.Gson;
+import net.pixomania.dbtest.client.datatypes.Airport;
 import net.pixomania.dbtest.client.datatypes.Flight;
 import net.pixomania.dbtest.client.http.HttpClient;
 import net.pixomania.dbtest.client.models.Util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
@@ -14,8 +16,20 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
+			/*
+			LinkedList<Airport> airports = Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"));
+			Gson gson = new Gson();
+			Long time = System.currentTimeMillis();
+			for (Airport airport : airports) {
+				String json = gson.toJson(airport);
+				String url = "http://localhost:9000/insert/airport/one/" + System.currentTimeMillis();
+				HttpClient.sendPOST(url, json);
+				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+			}
+			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+*/
 /*
-			ArrayList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
+			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
 			Long time = System.currentTimeMillis();
 			for(Flight flight : flights) {
@@ -27,7 +41,8 @@ public class Main {
 			System.out.println((System.currentTimeMillis() - time)/1000 + " SECONDS");
 
 */
-			ArrayList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
+			/*
+			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
 			Long time = System.currentTimeMillis();
 			for (Flight flight : flights) {
@@ -37,7 +52,17 @@ public class Main {
 				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 			}
 			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+*/
+			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
+			Gson gson = new Gson();
+			Long time = System.currentTimeMillis();
+			for (Flight flight : flights) {
 
+				String url = "http://localhost:9000/select/join/flight/dest/" + flight.getDest().getIata() + "/" + System.currentTimeMillis();
+				HttpClient.sendGET(url);
+				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+			}
+			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
