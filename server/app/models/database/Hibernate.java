@@ -46,6 +46,7 @@ public class Hibernate implements Database {
 		Query query = session.createQuery("from Flight where depTime = :depTime ");
 		query.setParameter("depTime", depTime);
 		List list = query.list();
+		session.close();
 		return System.currentTimeMillis();
 	}
 }
