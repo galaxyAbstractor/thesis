@@ -32,14 +32,35 @@ public class Hibernate implements Database {
 
 	@Override
 	public long insertAirport(Airport airport) {
-		return 0;
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(airport);
+		session.getTransaction().commit();
+		session.close();
+		return System.currentTimeMillis();
 	}
 
 	@Override
 	public long insertFlight(Flight flight) {
 		Session session = sessionFactory.openSession();
+
+		Query query = session.createQuery("from Airport where iata = :iata ");
+		query.setParameter("iata", flight.getDest().getIata());
+		List list = query.list();
+
+		Airport destAirport = (Airport) list.get(0);
+		flight.setDest(destAirport);
+
+		query = session.createQuery("from Airport where iata = :iata ");
+		query.setParameter("iata", flight.getOrigin().getIata());
+		list = query.list();
+
+		Airport origAirport = (Airport) list.get(0);
+		flight.setOrigin(origAirport);
+
 		session.beginTransaction();
 		session.save(flight);
+
 		session.getTransaction().commit();
 		session.close();
 		return System.currentTimeMillis();
@@ -48,7 +69,6 @@ public class Hibernate implements Database {
 	@Override
 	public long selectFlightByDepTime(int depTime) {
 		Session session = sessionFactory.openSession();
-
 		Query query = session.createQuery("from Flight where depTime = :depTime ");
 		query.setParameter("depTime", depTime);
 		List list = query.list();
@@ -58,6 +78,13 @@ public class Hibernate implements Database {
 
 	@Override
 	public long joinSelectFlightByDest(String dest) {
-		return 0;
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from Airport where iata = :iata ");
+		query.setParameter("iata", dest);
+		List list = query.list();
+		Airport airport = (Airport) list.get(0);
+
+		session.close();
+		return System.currentTimeMillis();
 	}
 }

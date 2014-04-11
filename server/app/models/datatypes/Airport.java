@@ -1,6 +1,7 @@
 package models.datatypes;
 
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Airport {
 	private int id;
@@ -11,8 +12,8 @@ public class Airport {
 	private String country;
 	private Double lat;
 	private Double longitude;
-	private LinkedList<Flight> flyingIn = new LinkedList<>();
-	private LinkedList<Flight> flyingOut = new LinkedList<>();
+	private Set flyingIn;
+	private Set flyingOut;
 
 	public int getId() {
 		return id;
@@ -78,19 +79,19 @@ public class Airport {
 		this.longitude = longitude;
 	}
 
-	public LinkedList<Flight> getFlyingIn() {
+	public Set getFlyingIn() {
 		return flyingIn;
 	}
 
-	public void setFlyingIn(LinkedList<Flight> flyingIn) {
+	public void setFlyingIn(Set flyingIn) {
 		this.flyingIn = flyingIn;
 	}
 
-	public LinkedList<Flight> getFlyingOut() {
+	public Set getFlyingOut() {
 		return flyingOut;
 	}
 
-	public void setFlyingOut(LinkedList<Flight> flyingOut) {
+	public void setFlyingOut(Set flyingOut) {
 		this.flyingOut = flyingOut;
 	}
 }

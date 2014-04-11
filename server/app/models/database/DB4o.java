@@ -10,6 +10,7 @@ import models.datatypes.Airport;
 import models.datatypes.Flight;
 import play.Logger;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class DB4o implements Database {
@@ -29,6 +30,8 @@ public class DB4o implements Database {
 	@Override
 	public long insertAirport(Airport airport) {
 		try {
+			airport.setFlyingIn(new HashSet<Flight>());
+			airport.setFlyingOut(new HashSet<Flight>());
 			db.store(airport);
 			db.commit();
 		} catch (Exception ex) {
@@ -83,6 +86,7 @@ public class DB4o implements Database {
 		destAirport.setIata(dest);
 		ObjectSet result = db.queryByExample(destAirport);
 		destAirport = (Airport) result.next();
+		System.out.println(destAirport.getFlyingOut().size());
 		return System.currentTimeMillis();
 	}
 }

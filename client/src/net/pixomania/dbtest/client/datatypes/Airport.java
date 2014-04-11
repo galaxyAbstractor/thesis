@@ -1,6 +1,6 @@
 package net.pixomania.dbtest.client.datatypes;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 
 public class Airport {
 	private int id;
@@ -11,8 +11,6 @@ public class Airport {
 	private String country;
 	private Double lat;
 	private Double longitude;
-	private LinkedList<Flight> flyingIn = new LinkedList<>();
-	private LinkedList<Flight> flyingOut = new LinkedList<>();
 
 	public int getId() {
 		return id;
@@ -78,20 +76,5 @@ public class Airport {
 		this.longitude = longitude;
 	}
 
-	public LinkedList<Flight> getFlyingIn() {
-		return flyingIn;
-	}
-
-	public void setFlyingIn(LinkedList<Flight> flyingIn) {
-		this.flyingIn = flyingIn;
-	}
-
-	public LinkedList<Flight> getFlyingOut() {
-		return flyingOut;
-	}
-
-	public void setFlyingOut(LinkedList<Flight> flyingOut) {
-		this.flyingOut = flyingOut;
-	}
 }
 

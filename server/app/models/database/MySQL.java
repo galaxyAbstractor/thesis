@@ -19,7 +19,7 @@ public class MySQL implements Database {
 	public long insertAirport(Airport airport) {
 		try {
 			PreparedStatement pst = conn.prepareStatement("INSERT INTO airports (iata, airport, city, state," +
-					"country, lat, `long`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+					"country, lat, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			pst.setString(1, airport.getIata());
 			pst.setString(2, airport.getAirport());
 			pst.setString(3, airport.getCity());
@@ -71,8 +71,23 @@ public class MySQL implements Database {
 			pst.setInt(14, flight.getAirTime());
 			pst.setInt(15, flight.getArrDelay());
 			pst.setInt(16, flight.getDepDelay());
-			pst.setString(17, flight.getOrigin().getIata());
-			pst.setString(18, flight.getDest().getIata());
+
+			PreparedStatement originPst = conn.prepareStatement("SELECT id FROM airports WHERE iata = ?");
+			originPst.setString(1, flight.getOrigin().getIata());
+			ResultSet originResult = originPst.executeQuery();
+			originResult.next();
+			pst.setInt(17, originResult.getInt("id"));
+			originResult.close();
+			originPst.close();
+
+			PreparedStatement destPst = conn.prepareStatement("SELECT id FROM airports WHERE iata = ?");
+			destPst.setString(1, flight.getDest().getIata());
+			ResultSet destResult = destPst.executeQuery();
+			destResult.next();
+			pst.setInt(18, destResult.getInt("id"));
+			destResult.close();
+			destPst.close();
+
 			pst.setInt(19, flight.getDistance());
 			pst.setInt(20, flight.getTaxiIn());
 			pst.setInt(21, flight.getTaxiOut());
@@ -127,7 +142,7 @@ public class MySQL implements Database {
 	public long joinSelectFlightByDest(String dest) {
 		try {
 			PreparedStatement pst = conn.prepareStatement("SELECT * FROM airports INNER JOIN ontime ON " +
-					"(airports.iata = ontime.Dest) WHERE airports.iata = ?");
+					"(airports.id = ontime.Dest) WHERE airports.iata = ?");
 			pst.setString(1, dest);
 			pst.executeQuery();
 			pst.close();

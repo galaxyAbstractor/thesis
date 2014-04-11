@@ -8,7 +8,7 @@
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
-        <id name="id" type="int" column="Id">
+        <id name="id" type="int" column="id">
             <generator class="increment"/>
         </id>
         <property name="iata" column="iata"/>
@@ -17,7 +17,15 @@
         <property name="state" column="state"/>
         <property name="country" column="country"/>
         <property name="lat" column="lat"/>
-        <property name="longitude" column="long"/>
+        <property name="longitude" column="longitude"/>
+        <set name="flyingIn" cascade="all">
+            <key column="Dest"/>
+            <one-to-many class="models.datatypes.Flight"/>
+        </set>
+        <set name="flyingOut" cascade="all">
+            <key column="Origin"/>
+            <one-to-many class="models.datatypes.Flight"/>
+        </set>
 
     </class>
 </hibernate-mapping>
