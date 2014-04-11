@@ -10,6 +10,8 @@ import models.datatypes.Airport;
 import models.datatypes.Flight;
 import play.Logger;
 
+import java.util.LinkedList;
+
 public class DB4o implements Database {
 	private static ObjectContainer db;
 
@@ -26,13 +28,33 @@ public class DB4o implements Database {
 
 	@Override
 	public long insertAirport(Airport airport) {
-		return 0;
+		try {
+			db.store(airport);
+			db.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return -1;
+		}
+		return System.currentTimeMillis();
 	}
 
 	@Override
 	public long insertFlight(Flight flight) {
 		try {
+			ObjectSet result = db.queryByExample(flight.getDest());
+			Airport destAirport = (Airport) result.next();
+			destAirport.getFlyingIn().add(flight);
+			flight.setDest(destAirport);
+
+			result = db.queryByExample(flight.getOrigin());
+			Airport originAirport = (Airport) result.next();
+			originAirport.getFlyingOut().add(flight);
+
+			flight.setOrigin(originAirport);
+
 			db.store(flight);
+			db.store(destAirport);
+			db.store(originAirport);
 			db.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -57,6 +79,10 @@ public class DB4o implements Database {
 
 	@Override
 	public long joinSelectFlightByDest(String dest) {
-		return 0;
+		Airport destAirport = new Airport();
+		destAirport.setIata(dest);
+		ObjectSet result = db.queryByExample(destAirport);
+		destAirport = (Airport) result.next();
+		return System.currentTimeMillis();
 	}
 }

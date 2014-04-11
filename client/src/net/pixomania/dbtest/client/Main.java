@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-			/*
+/*
 			LinkedList<Airport> airports = Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"));
 			Gson gson = new Gson();
 			Long time = System.currentTimeMillis();
@@ -39,9 +39,9 @@ public class Main {
 				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 			}
 			System.out.println((System.currentTimeMillis() - time)/1000 + " SECONDS");
-
 */
-			/*
+
+/*
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
 			Long time = System.currentTimeMillis();
@@ -53,6 +53,7 @@ public class Main {
 			}
 			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 */
+
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
 			Long time = System.currentTimeMillis();
@@ -63,6 +64,7 @@ public class Main {
 				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 			}
 			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
