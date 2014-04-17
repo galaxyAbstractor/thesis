@@ -7,6 +7,7 @@ import net.pixomania.dbtest.client.http.HttpClient;
 import net.pixomania.dbtest.client.models.Util;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -19,51 +20,56 @@ public class Main {
 /*
 			LinkedList<Airport> airports = Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"));
 			Gson gson = new Gson();
-			Long time = System.currentTimeMillis();
+			DecimalFormat df = new DecimalFormat("#.000");
 			for (Airport airport : airports) {
 				String json = gson.toJson(airport);
 				String url = "http://localhost:9000/insert/airport/one/" + System.currentTimeMillis();
 				HttpClient.sendPOST(url, json);
-				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+				System.out.println(HttpClient.totaltime + "ms | " + df.format((double)HttpClient.totaltime/(double)1000) +"s " +
+						"| average (ms): " + df.format((double) HttpClient.totaltime / (double) HttpClient.requestsmade)  + " | requests made: " + HttpClient.requestsmade +
+						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
-			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 */
+
 /*
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
-			Long time = System.currentTimeMillis();
+			DecimalFormat df = new DecimalFormat("#.000");
 			for(Flight flight : flights) {
 				String json = gson.toJson(flight);
 				String url = "http://localhost:9000/insert/flight/one/" + System.currentTimeMillis();
 				HttpClient.sendPOST(url, json);
-				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+				System.out.println(HttpClient.totaltime + "ms | " + df.format((double) HttpClient.totaltime / (double) 1000) + "s " +
+						"| average (ms): " + df.format((double) HttpClient.totaltime / (double) HttpClient.requestsmade) + " | requests made: " + HttpClient.requestsmade +
+						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
-			System.out.println((System.currentTimeMillis() - time)/1000 + " SECONDS");
 */
-
 /*
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
-			Long time = System.currentTimeMillis();
+			DecimalFormat df = new DecimalFormat("#.000");
 			for (Flight flight : flights) {
 
 				String url = "http://localhost:9000/select/flight/deptime/" + flight.getDepTime() + "/" + System.currentTimeMillis();
 				HttpClient.sendGET(url);
-				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+				System.out.println(HttpClient.totaltime + "ms | " + df.format((double) HttpClient.totaltime / (double) 1000) + "s " +
+						"| average (ms): " + df.format((double) HttpClient.totaltime / (double) HttpClient.requestsmade) + " | requests made: " + HttpClient.requestsmade +
+						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
-			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
 */
 
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
-			Long time = System.currentTimeMillis();
+			DecimalFormat df = new DecimalFormat("#.000");
 			for (Flight flight : flights) {
 
 				String url = "http://localhost:9000/select/join/flight/dest/" + flight.getDest().getIata() + "/" + System.currentTimeMillis();
 				HttpClient.sendGET(url);
-				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+				System.out.println(HttpClient.totaltime + "ms | " + df.format((double) HttpClient.totaltime / (double) 1000) + "s " +
+						"| average (ms): " + df.format((double) HttpClient.totaltime / (double) HttpClient.requestsmade) + " | requests made: " + HttpClient.requestsmade +
+						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
-			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

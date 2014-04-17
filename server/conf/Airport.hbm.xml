@@ -18,11 +18,11 @@
         <property name="country" column="country"/>
         <property name="lat" column="lat"/>
         <property name="longitude" column="longitude"/>
-        <set name="flyingIn" cascade="all">
+        <set name="flyingIn" cascade="all" inverse="true">
             <key column="Dest"/>
             <one-to-many class="models.datatypes.Flight"/>
         </set>
-        <set name="flyingOut" cascade="all">
+        <set name="flyingOut" cascade="all" inverse="true">
             <key column="Origin"/>
             <one-to-many class="models.datatypes.Flight"/>
         </set>

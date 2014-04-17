@@ -16,7 +16,7 @@ public class Insert extends Controller {
 
     public static Result oneFlight(Long time) {
 		Long reqArrTime = System.currentTimeMillis();
-		Long[] times = new Long[3];
+		Long[] times = new Long[4];
 		times[0] = time;
 		times[1] = reqArrTime;
 
@@ -29,15 +29,16 @@ public class Insert extends Controller {
 		Database db = new DB4o();
 		//Database db = new Hibernate();
 
-		times[2] = db.insertFlight(flight);
+		times[2] = System.currentTimeMillis();
+		times[3] = db.insertFlight(flight);
 
-		if(times[2] == -1) return internalServerError();
-        return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + "]");
+		if(times[3] == -1) return internalServerError();
+        return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + ", " + times[3] + "]");
     }
 
 	public static Result oneAirport(Long time) {
 		Long reqArrTime = System.currentTimeMillis();
-		Long[] times = new Long[3];
+		Long[] times = new Long[4];
 		times[0] = time;
 		times[1] = reqArrTime;
 
@@ -50,10 +51,11 @@ public class Insert extends Controller {
 		Database db = new DB4o();
 		//Database db = new Hibernate();
 
-		times[2] = db.insertAirport(airport);
+		times[2] = System.currentTimeMillis();
+		times[3] = db.insertAirport(airport);
 
-		if (times[2] == -1) return internalServerError();
-		return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + "]");
+		if (times[3] == -1) return internalServerError();
+		return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + ", " + times[3] + "]");
 	}
 
 }

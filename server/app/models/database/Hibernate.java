@@ -72,6 +72,7 @@ public class Hibernate implements Database {
 		Query query = session.createQuery("from Flight where depTime = :depTime ");
 		query.setParameter("depTime", depTime);
 		List list = query.list();
+		int size = list.size();
 		session.close();
 		return System.currentTimeMillis();
 	}
@@ -83,7 +84,7 @@ public class Hibernate implements Database {
 		query.setParameter("iata", dest);
 		List list = query.list();
 		Airport airport = (Airport) list.get(0);
-
+		int size = airport.getFlyingIn().size();
 		session.close();
 		return System.currentTimeMillis();
 	}

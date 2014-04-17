@@ -55,7 +55,7 @@ public class Util {
 			flight.setLateAircraftDelay(checkInt(scanner1.next()));
 
 			flights.add(flight);
-			if(flights.size() == 80000) break;
+			if(flights.size() == 3000) break;
 		}
 
 		return flights;

@@ -121,12 +121,14 @@ public class MySQL implements Database {
 		try {
 			PreparedStatement pst = conn.prepareStatement("SELECT * FROM ontime WHERE DepTime = ?");
 			pst.setInt(1, depTime);
-			pst.executeQuery();
+			ResultSet result = pst.executeQuery();
+			result.next();
+			//System.out.println(result.getInt("DepTime"));
 			pst.close();
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");
 			e.printStackTrace();
-
+			return -1;
 		} finally {
 			try {
 				conn.close();
@@ -144,12 +146,14 @@ public class MySQL implements Database {
 			PreparedStatement pst = conn.prepareStatement("SELECT * FROM airports INNER JOIN ontime ON " +
 					"(airports.id = ontime.Dest) WHERE airports.iata = ?");
 			pst.setString(1, dest);
-			pst.executeQuery();
+			ResultSet result = pst.executeQuery();
+			result.next();
+			//System.out.println(result.getInt("DepTime"));
 			pst.close();
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");
 			e.printStackTrace();
-
+			return -1;
 		} finally {
 			try {
 				conn.close();

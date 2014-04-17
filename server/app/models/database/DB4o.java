@@ -30,8 +30,6 @@ public class DB4o implements Database {
 	@Override
 	public long insertAirport(Airport airport) {
 		try {
-			airport.setFlyingIn(new HashSet<Flight>());
-			airport.setFlyingOut(new HashSet<Flight>());
 			db.store(airport);
 			db.commit();
 		} catch (Exception ex) {
@@ -46,11 +44,13 @@ public class DB4o implements Database {
 		try {
 			ObjectSet result = db.queryByExample(flight.getDest());
 			Airport destAirport = (Airport) result.next();
+
 			destAirport.getFlyingIn().add(flight);
 			flight.setDest(destAirport);
 
 			result = db.queryByExample(flight.getOrigin());
 			Airport originAirport = (Airport) result.next();
+
 			originAirport.getFlyingOut().add(flight);
 
 			flight.setOrigin(originAirport);
@@ -73,6 +73,7 @@ public class DB4o implements Database {
 			Flight flightExample = new Flight();
 			flightExample.setDepTime(depTime);
 			ObjectSet result = db.queryByExample(flightExample);
+			int size = result.size();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return -1;
@@ -86,7 +87,8 @@ public class DB4o implements Database {
 		destAirport.setIata(dest);
 		ObjectSet result = db.queryByExample(destAirport);
 		destAirport = (Airport) result.next();
-		System.out.println(destAirport.getFlyingOut().size());
+		int size = destAirport.getFlyingOut().size();
+		System.out.println(size);
 		return System.currentTimeMillis();
 	}
 }

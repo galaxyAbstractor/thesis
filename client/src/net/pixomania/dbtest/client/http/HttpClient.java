@@ -13,6 +13,11 @@ import java.util.Collections;
 
 public class HttpClient {
 
+	public static long totaltime = 0;
+	public static long requestsmade = 0;
+	public static long high = 0;
+	public static long low = 50000;
+
 	public static void sendPOST(String url, String params) throws IOException {
 		java.net.URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -48,8 +53,16 @@ public class HttpClient {
 		Long[] newArr = Arrays.copyOf(longArr, longArr.length+1);
 		newArr[newArr.length-1] = timeTaken;
 
-		//print result
-		System.out.println(gson.toJson(newArr) + " Request time: " + (newArr[newArr.length-1] - newArr[0]) + "ms");
+		long timetaken = (newArr[newArr.length - 1] - newArr[0]);
+		System.out.println(gson.toJson(newArr) + " Request time: " + timetaken + "ms");
+		totaltime += timetaken;
+		requestsmade++;
+
+		if(timetaken < low) {
+			low = timetaken;
+		} else if(timetaken > high) {
+			high = timetaken;
+		}
 	}
 
 	public static void sendGET(String url) throws IOException {
@@ -80,7 +93,15 @@ public class HttpClient {
 		Long[] newArr = Arrays.copyOf(longArr, longArr.length + 1);
 		newArr[newArr.length - 1] = timeTaken;
 
-		//print result
-		System.out.println(gson.toJson(newArr) + " Request time: " + (newArr[newArr.length - 1] - newArr[0]) + "ms");
+		long timetaken = (newArr[newArr.length - 1] - newArr[0]);
+		System.out.println(gson.toJson(newArr) + " Request time: " + timetaken + "ms");
+		totaltime += timetaken;
+		requestsmade++;
+
+		if (timetaken < low) {
+			low = timetaken;
+		} else if (timetaken > high) {
+			high = timetaken;
+		}
 	}
 }
