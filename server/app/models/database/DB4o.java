@@ -87,7 +87,7 @@ public class DB4o implements Database {
 		destAirport.setIata(dest);
 		ObjectSet result = db.queryByExample(destAirport);
 		destAirport = (Airport) result.next();
-		int size = destAirport.getFlyingOut().size();
+		int size = destAirport.getFlyingIn().size();
 		System.out.println(size);
 		return System.currentTimeMillis();
 	}

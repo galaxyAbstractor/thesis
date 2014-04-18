@@ -16,8 +16,8 @@ public class Select extends Controller {
 		times[1] = reqArrTime;
 
 		//Database db = new MySQL();
-		Database db = new DB4o();
-		//Database db = new Hibernate();
+		//Database db = new DB4o();
+		Database db = new Hibernate();
 
 		times[2] = System.currentTimeMillis();
 		times[3] = db.selectFlightByDepTime(depTime);
@@ -32,8 +32,8 @@ public class Select extends Controller {
 		times[1] = reqArrTime;
 
 		//Database db = new MySQL();
-		Database db = new DB4o();
-		//Database db = new Hibernate();
+		//Database db = new DB4o();
+		Database db = new Hibernate();
 
 		times[2] = System.currentTimeMillis();
 		times[3] = db.joinSelectFlightByDest(dest);

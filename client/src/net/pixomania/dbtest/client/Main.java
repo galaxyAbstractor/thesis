@@ -29,8 +29,8 @@ public class Main {
 						"| average (ms): " + df.format((double) HttpClient.totaltime / (double) HttpClient.requestsmade)  + " | requests made: " + HttpClient.requestsmade +
 						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
-*/
 
+*/
 /*
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
