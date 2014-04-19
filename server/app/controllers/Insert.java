@@ -25,9 +25,9 @@ public class Insert extends Controller {
 		Gson gson = new Gson();
 		Flight flight = gson.fromJson(json, Flight.class);
 
-		//Database db = new MySQL();
+		Database db = new MySQL();
 		//Database db = new DB4o();
-		Database db = new Hibernate();
+		//Database db = new Hibernate();
 
 		times[2] = System.currentTimeMillis();
 		times[3] = db.insertFlight(flight);
@@ -47,9 +47,9 @@ public class Insert extends Controller {
 		Gson gson = new Gson();
 		Airport airport = gson.fromJson(json, Airport.class);
 
-		//Database db = new MySQL();
+		Database db = new MySQL();
 		//Database db = new DB4o();
-		Database db = new Hibernate();
+		//Database db = new Hibernate();
 
 		times[2] = System.currentTimeMillis();
 		times[3] = db.insertAirport(airport);

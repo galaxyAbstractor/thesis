@@ -17,7 +17,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-/*
+
 			LinkedList<Airport> airports = Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"));
 			Gson gson = new Gson();
 			DecimalFormat df = new DecimalFormat("#.000");
@@ -30,7 +30,7 @@ public class Main {
 						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
 
-*/
+
 /*
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
@@ -57,7 +57,7 @@ public class Main {
 						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
 */
-
+/*
 			LinkedList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
 			Gson gson = new Gson();
 			DecimalFormat df = new DecimalFormat("#.000");
@@ -69,7 +69,7 @@ public class Main {
 						"| average (ms): " + df.format((double) HttpClient.totaltime / (double) HttpClient.requestsmade) + " | requests made: " + HttpClient.requestsmade +
 						" | low: " + HttpClient.low + "ms | high: " + HttpClient.high + "ms");
 			}
-
+*/
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

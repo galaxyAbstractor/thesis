@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="models.datatypes.Flight" table="ontime">
         <meta attribute="class-description">
-            This class contains the employee detail.
+            This class contains the flight.
         </meta>
         <id name="id" type="int" column="Id">
             <generator class="increment"/>

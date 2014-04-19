@@ -123,7 +123,6 @@ public class MySQL implements Database {
 			pst.setInt(1, depTime);
 			ResultSet result = pst.executeQuery();
 			result.next();
-			//System.out.println(result.getInt("DepTime"));
 			pst.close();
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");
@@ -148,7 +147,6 @@ public class MySQL implements Database {
 			pst.setString(1, dest);
 			ResultSet result = pst.executeQuery();
 			result.next();
-			//System.out.println(result.getInt("DepTime"));
 			pst.close();
 		} catch (SQLException e) {
 			System.err.println("Could not create statement");

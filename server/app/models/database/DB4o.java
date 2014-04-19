@@ -88,7 +88,6 @@ public class DB4o implements Database {
 		ObjectSet result = db.queryByExample(destAirport);
 		destAirport = (Airport) result.next();
 		int size = destAirport.getFlyingIn().size();
-		System.out.println(size);
 		return System.currentTimeMillis();
 	}
 }

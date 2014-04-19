@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="models.datatypes.Airport" table="airports">
         <meta attribute="class-description">
-            This class contains the employee detail.
+            This class contains the airport detail.
         </meta>
         <id name="id" type="int" column="id">
             <generator class="increment"/>

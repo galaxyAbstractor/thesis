@@ -82,7 +82,6 @@ public class Util {
 		while (scanner.hasNextLine()) {
 			Airport airport = new Airport();
 			String line = scanner.nextLine();
-			System.out.println(line);
 			Scanner scanner1 = new Scanner(line);
 			scanner1.useDelimiter(",");
 			airport.setIata(scanner1.next());
