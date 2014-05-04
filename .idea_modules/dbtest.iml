@@ -4,7 +4,7 @@
     <facet type="scala" name="Scala">
       <configuration>
         <option name="compilerLibraryLevel" value="Project" />
-        <option name="compilerLibraryName" value="SBT:: scala-compiler:2.10.2" />
+        <option name="compilerLibraryName" value="SBT:: scala-compiler-bundle:2.10.2" />
         <option name="fsc" value="true" />
       </configuration>
     </facet>
@@ -24,8 +24,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../target/scala-2.10/resource_managed/main" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../target/scala-2.10/resource_managed/test" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../src/test/resources" type="java-test-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../project/project/target" />
-      <excludeFolder url="file://$MODULE_DIR$/../project/target" />
       <excludeFolder url="file://$MODULE_DIR$/../target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -34,6 +32,7 @@
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
         <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/mysql-connector-java-5.1.30.jar!/" />
           <root url="jar://$MODULE_DIR$/../lib/gson-2.2.4.jar!/" />
         </CLASSES>
         <JAVADOC />

@@ -3,11 +3,10 @@ package models.database;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.reflect.generic.GenericClass;
-import com.db4o.reflect.generic.GenericObject;
-import com.db4o.reflect.generic.GenericReflector;
 import models.datatypes.Flight;
 import play.Logger;
+
+import java.io.File;
 
 public class DB4o implements Database {
 	private static ObjectContainer db;
@@ -47,5 +46,12 @@ public class DB4o implements Database {
 			return -1;
 		}
 		return System.currentTimeMillis();
+	}
+
+	public void purge() {
+		closeDB();
+		File dbfile = new File("db4o.db");
+		dbfile.delete();
+		openDB();
 	}
 }

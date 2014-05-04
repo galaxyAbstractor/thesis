@@ -1,9 +1,5 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
+POST /insert/flight/one/:time/:db controllers.Insert.oneFlight(time: Long, db: Int)
 
-POST    /insert/flight/one/:time                     controllers.Insert.oneFlight(time: Long)
+GET /select/flight/deptime/:depTime/:time/:db controllers.Select.flightByDepTime(depTime: Int, time: Long, db: Int)
 
-GET		/select/flight/deptime/:id/:time			 controllers.Select.flightByDepTime(id: Int, time: Long)
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET /purge controllers.Purge.purge()

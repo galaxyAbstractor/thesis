@@ -91,4 +91,20 @@ public class MySQL implements Database {
 		return System.currentTimeMillis();
 	}
 
+	public void purge() {
+		try {
+			Statement pst = conn.createStatement();
+			pst.execute("DELETE FROM ontime WHERE 1=1"); // Truncate is not supported when using foreign keys
+			pst.close();
+		} catch (SQLException e) {
+			System.err.println("Could not create statement");
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
