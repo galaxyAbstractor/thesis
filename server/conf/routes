@@ -1,5 +1,7 @@
-POST    /insert/airport/one/:time                    controllers.Insert.oneAirport(time: Long)
-POST    /insert/flight/one/:time                     controllers.Insert.oneFlight(time: Long)
+POST    /insert/airport/one/:time/:db                    controllers.Insert.oneAirport(time: Long, db: Int)
+POST    /insert/flight/one/:time/:db                     controllers.Insert.oneFlight(time: Long, db: Int)
 
-GET		/select/flight/deptime/:depTime/:time			 controllers.Select.flightByDepTime(depTime: Int, time: Long)
-GET		/select/join/flight/dest/:dest/:time				 controllers.Select.joinFlightByDest(dest: String, time: Long)
+GET		/select/flight/deptime/:depTime/:time/:db		 controllers.Select.flightByDepTime(depTime: Int, time: Long, db: Int)
+GET		/select/join/flight/dest/:dest/:time/:db		 controllers.Select.joinFlightByDest(dest: String, time: Long, db: Int)
+
+GET		/purge											 controllers.Purge.purge()

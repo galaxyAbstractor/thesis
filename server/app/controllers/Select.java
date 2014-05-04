@@ -9,15 +9,24 @@ import play.mvc.Result;
 
 public class Select extends Controller {
 
-	public static Result flightByDepTime(int depTime, Long time) {
+	public static Result flightByDepTime(int depTime, Long time, int database) {
 		Long reqArrTime = System.currentTimeMillis();
 		Long[] times = new Long[4];
 		times[0] = time;
 		times[1] = reqArrTime;
 
-		Database db = new MySQL();
-		//Database db = new DB4o();
-		//Database db = new Hibernate();
+		Database db = null;
+		switch (database) {
+			case 1:
+				db = new MySQL();
+				break;
+			case 2:
+				db = new DB4o();
+				break;
+			case 3:
+				db = new Hibernate();
+				break;
+		}
 
 		times[2] = System.currentTimeMillis();
 		times[3] = db.selectFlightByDepTime(depTime);
@@ -25,15 +34,24 @@ public class Select extends Controller {
 		return ok("[" + times[0] + ", " + times[1] + ", " + times[2] + ", " + times[3] + "]");
 	}
 
-	public static Result joinFlightByDest(String dest, Long time) {
+	public static Result joinFlightByDest(String dest, Long time, int database) {
 		Long reqArrTime = System.currentTimeMillis();
 		Long[] times = new Long[4];
 		times[0] = time;
 		times[1] = reqArrTime;
 
-		Database db = new MySQL();
-		//Database db = new DB4o();
-		//Database db = new Hibernate();
+		Database db = null;
+		switch (database) {
+			case 1:
+				db = new MySQL();
+				break;
+			case 2:
+				db = new DB4o();
+				break;
+			case 3:
+				db = new Hibernate();
+				break;
+		}
 
 		times[2] = System.currentTimeMillis();
 		times[3] = db.joinSelectFlightByDest(dest);

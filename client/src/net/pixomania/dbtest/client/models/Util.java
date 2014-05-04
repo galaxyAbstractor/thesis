@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Util {
 
-	public static LinkedList<Flight> loadFlights(File csv) throws FileNotFoundException {
+	public static LinkedList<Flight> loadFlights(File csv, int count) throws FileNotFoundException {
 		LinkedList<Flight> flights = new LinkedList<>();
 		Scanner scanner = new Scanner(csv);
 		scanner.useDelimiter(",");
@@ -55,7 +55,7 @@ public class Util {
 			flight.setLateAircraftDelay(checkInt(scanner1.next()));
 
 			flights.add(flight);
-			if(flights.size() == 3000) break;
+			if(flights.size() == count) break;
 		}
 
 		return flights;
@@ -74,7 +74,7 @@ public class Util {
 		return input;
 	}
 
-	public static LinkedList<Airport> loadAirports(File csv) throws FileNotFoundException {
+	public static LinkedList<Airport> loadAirports(File csv, int count) throws FileNotFoundException {
 		LinkedList<Airport> airports = new LinkedList<>();
 		Scanner scanner = new Scanner(csv);
 		scanner.useDelimiter(",");
@@ -94,7 +94,7 @@ public class Util {
 
 
 			airports.add(airport);
-
+			if (airports.size() == count) break;
 		}
 
 		return airports;

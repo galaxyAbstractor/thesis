@@ -18,7 +18,7 @@ public class HttpClient {
 	public static long high = 0;
 	public static long low = 50000;
 
-	public static void sendPOST(String url, String params) throws IOException {
+	public static long[] sendPOST(String url, String params) throws IOException {
 		java.net.URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -44,28 +44,19 @@ public class HttpClient {
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
-		Long timeTaken = System.currentTimeMillis();
+		long timeTaken = System.currentTimeMillis();
 		in.close();
 
 		Gson gson = new Gson();
 
-		Long[] longArr = gson.fromJson(response.toString(), Long[].class);
-		Long[] newArr = Arrays.copyOf(longArr, longArr.length+1);
+		long[] longArr = gson.fromJson(response.toString(), long[].class);
+		long[] newArr = Arrays.copyOf(longArr, longArr.length+1);
 		newArr[newArr.length-1] = timeTaken;
 
-		long timetaken = (newArr[newArr.length - 1] - newArr[0]);
-		System.out.println(gson.toJson(newArr) + " Request time: " + timetaken + "ms");
-		totaltime += timetaken;
-		requestsmade++;
-
-		if(timetaken < low) {
-			low = timetaken;
-		} else if(timetaken > high) {
-			high = timetaken;
-		}
+		return newArr;
 	}
 
-	public static void sendGET(String url) throws IOException {
+	public static long[] sendGET(String url) throws IOException {
 		java.net.URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -84,24 +75,16 @@ public class HttpClient {
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
-		Long timeTaken = System.currentTimeMillis();
+		long timeTaken = System.currentTimeMillis();
 		in.close();
 
 		Gson gson = new Gson();
 
-		Long[] longArr = gson.fromJson(response.toString(), Long[].class);
-		Long[] newArr = Arrays.copyOf(longArr, longArr.length + 1);
+		long[] longArr = gson.fromJson(response.toString(), long[].class);
+		long[] newArr = Arrays.copyOf(longArr, longArr.length + 1);
 		newArr[newArr.length - 1] = timeTaken;
 
-		long timetaken = (newArr[newArr.length - 1] - newArr[0]);
-		System.out.println(gson.toJson(newArr) + " Request time: " + timetaken + "ms");
-		totaltime += timetaken;
-		requestsmade++;
+		return newArr;
 
-		if (timetaken < low) {
-			low = timetaken;
-		} else if (timetaken > high) {
-			high = timetaken;
-		}
 	}
 }

@@ -10,6 +10,7 @@ import models.datatypes.Airport;
 import models.datatypes.Flight;
 import play.Logger;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -89,5 +90,12 @@ public class DB4o implements Database {
 		destAirport = (Airport) result.next();
 		int size = destAirport.getFlyingIn().size();
 		return System.currentTimeMillis();
+	}
+
+	public void purge() {
+		closeDB();
+		File dbfile = new File("db4o.db");
+		dbfile.delete();
+		openDB();
 	}
 }
