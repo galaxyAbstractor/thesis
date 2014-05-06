@@ -3,12 +3,15 @@ package net.pixomania.dbtest.client.models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ConnectionPool {
-	private static LinkedList<Connection> pool = new LinkedList<>();
+	private static List<Connection> pool = new LinkedList<Connection>();
 
-	public synchronized static void open(int connections){
+	public static void open(int connections){
 		for(int i = 0; i < connections; i++) {
 			try {
 				pool.add(DriverManager.getConnection("jdbc:mysql://localhost:3306/result", "root", ""));
@@ -20,16 +23,15 @@ public class ConnectionPool {
 	}
 
 	public synchronized static Connection getConnection() {
-		if(pool.size() == 0) open(1);
-
-		return pool.poll();
+		return pool.remove(0);
 	}
 
 	public synchronized static void returnConnection(Connection con) {
 		pool.add(con);
+		//System.out.println("Returned connection!! " + pool.size()+" HASH"+ Integer.toHexString(con.hashCode()));
 	}
 
-	public synchronized static void close() {
+	public  static void close() {
 		for(Connection con : pool) {
 			try {
 				con.close();

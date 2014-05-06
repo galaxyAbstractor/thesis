@@ -16,18 +16,12 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-			//LinkedList<Airport> airports =	Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"), 3376);
-			ConnectionPool.open(5);
-			for(int dataamount = 0; dataamount < 3; dataamount++) {
+			LinkedList<Airport> airports =	Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"), 3376);
+			ConnectionPool.open(50);
+			for(int dataamount = 0; dataamount < 1; dataamount++) {
 				for (int repetitions = 0; repetitions < 3; repetitions++) {
 					for (int database = 1; database < 4; database++) {
 						testing_database = database;
-	/*
-						InsertAirportTest insertAirportTest = new InsertAirportTest();
-						insertAirportTest.run(airports);
-						System.out.println("[" + new Date() + "] Insert airports test done, run: " + (repetitions + 1) + ", database: " + testing_database);
-	*/
-						InsertFlightTest insertFlightTest = new InsertFlightTest();
 						int toload = 0;
 
 						switch (dataamount) {
@@ -44,18 +38,24 @@ public class Main {
 								toload = 80000;
 								break;
 						}
+						InsertAirportTest insertAirportTest = new InsertAirportTest();
+						insertAirportTest.run(airports);
+						System.out.println("[" + new Date() + "] Insert airports test done, run: " + (repetitions + 1) + ", database: " + testing_database + ", data amount: " + toload);
+
+						InsertFlightTest insertFlightTest = new InsertFlightTest();
+
 						LinkedList<Flight> flights = Util.loadFlights(new File("1987.csv"), toload);
 						insertFlightTest.run(flights);
-						System.out.println("[" + new Date() + "] Insert flights test done, run: " + (repetitions + 1) + ", database: " + testing_database);
+						System.out.println("[" + new Date() + "] Insert flights test done, run: " + (repetitions + 1) + ", database: " + testing_database + ", data amount: " + toload);
 
 						SelectFlightTest selectFlightTest = new SelectFlightTest();
 						selectFlightTest.run(flights);
-						System.out.println("[" + new Date() + "] Select flights test done, run: " + (repetitions + 1) + ", database: " + testing_database);
-	/*
+						System.out.println("[" + new Date() + "] Select flights test done, run: " + (repetitions + 1) + ", database: " + testing_database + ", data amount: " + toload);
+
 						ListFlightTest listFlightTest = new ListFlightTest();
 						listFlightTest.run(airports);
-						System.out.println("[" + new Date() + "] List fligths test done, run: " + (repetitions + 1) + ", database: " + testing_database);
-	*/
+						System.out.println("[" + new Date() + "] List fligths test done, run: " + (repetitions + 1) + ", database: " + testing_database + ", data amount: " + toload);
+
 						HttpClient.sendGET(url + "/purge");
 					}
 				}

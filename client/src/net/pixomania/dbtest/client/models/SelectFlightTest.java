@@ -2,16 +2,15 @@ package net.pixomania.dbtest.client.models;
 
 import com.google.gson.Gson;
 import net.pixomania.dbtest.client.Main;
-import net.pixomania.dbtest.client.datatypes.Airport;
 import net.pixomania.dbtest.client.datatypes.Flight;
 import net.pixomania.dbtest.client.http.HttpClient;
 
 import java.io.IOException;
 import java.sql.*;
-import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class SelectFlightTest extends Test {
 
@@ -20,9 +19,8 @@ public class SelectFlightTest extends Test {
 	}
 
 	public void run(LinkedList<Flight> flights) {
-		ExecutorService pool = Executors.newFixedThreadPool(5);
+		ExecutorService pool = Executors.newFixedThreadPool(50);
 		Gson gson = new Gson();
-		DecimalFormat df = new DecimalFormat("#.000");
 		for (Flight flight : flights) {
 			String url = Main.url + "/select/flight/deptime/" + flight.getDepTime() + "/" + System.currentTimeMillis() + "/" + Main.testing_database;
 			try {
@@ -51,14 +49,20 @@ public class SelectFlightTest extends Test {
 							}
 						} catch (SQLException e) {
 							e.printStackTrace();
+						} finally {
+							ConnectionPool.returnConnection(conn);
 						}
-						ConnectionPool.returnConnection(conn);
 					}
 				});
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		pool.shutdown();
+		try {
+			pool.shutdown();
+			pool.awaitTermination(1, TimeUnit.DAYS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

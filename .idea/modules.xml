@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/client/client.iml" filepath="$PROJECT_DIR$/client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea_modules/dbtest.iml" filepath="$PROJECT_DIR$/.idea_modules/dbtest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea_modules/dbtest-build.iml" filepath="$PROJECT_DIR$/.idea_modules/dbtest-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/result/result.iml" filepath="$PROJECT_DIR$/result/result.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/.idea/modules/server.iml" filepath="$PROJECT_DIR$/server/.idea/modules/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/.idea/modules/server-build.iml" filepath="$PROJECT_DIR$/server/.idea/modules/server-build.iml" />
     </modules>

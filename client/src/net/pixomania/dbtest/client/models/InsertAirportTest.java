@@ -6,10 +6,10 @@ import net.pixomania.dbtest.client.datatypes.Airport;
 import net.pixomania.dbtest.client.http.HttpClient;
 import java.io.IOException;
 import java.sql.*;
-import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class InsertAirportTest extends Test {
 
@@ -18,9 +18,8 @@ public class InsertAirportTest extends Test {
 	}
 
 	public void run(LinkedList<Airport> airports) {
-		ExecutorService pool = Executors.newFixedThreadPool(5);
+		ExecutorService pool = Executors.newFixedThreadPool(50);
 		Gson gson = new Gson();
-		DecimalFormat df = new DecimalFormat("#.000");
 		for (Airport airport : airports) {
 			String json = gson.toJson(airport);
 			String url = Main.url + "/insert/airport/one/" + System.currentTimeMillis() + "/" + Main.testing_database;
@@ -58,6 +57,11 @@ public class InsertAirportTest extends Test {
 				e.printStackTrace();
 			}
 		}
-		pool.shutdown();
+		try {
+			pool.shutdown();
+			pool.awaitTermination(1, TimeUnit.DAYS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
