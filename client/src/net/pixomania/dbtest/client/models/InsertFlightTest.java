@@ -19,7 +19,7 @@ public class InsertFlightTest extends Test {
 	}
 
 	public void run(LinkedList<Flight> flights) {
-		ExecutorService pool = Executors.newFixedThreadPool(50);
+		ExecutorService pool = Executors.newFixedThreadPool(100);
 		Gson gson = new Gson();
 		for (Flight flight : flights) {
 			String json = gson.toJson(flight);

@@ -16,10 +16,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-			LinkedList<Airport> airports =	Util.loadAirports(new File("C:\\Users\\Victor\\dbtest\\client\\data\\airports.csv"), 3376);
-			ConnectionPool.open(50);
-			for(int dataamount = 0; dataamount < 1; dataamount++) {
-				for (int repetitions = 0; repetitions < 3; repetitions++) {
+			LinkedList<Airport> airports =	Util.loadAirports(new File("airports.csv"), 3376);
+			ConnectionPool.open(100);
+			for(int dataamount = 0; dataamount < 3; dataamount++) {
+				for (int repetitions = 0; repetitions < 4; repetitions++) {
 					for (int database = 1; database < 4; database++) {
 						testing_database = database;
 						int toload = 0;

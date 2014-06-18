@@ -18,7 +18,7 @@ public class InsertAirportTest extends Test {
 	}
 
 	public void run(LinkedList<Airport> airports) {
-		ExecutorService pool = Executors.newFixedThreadPool(50);
+		ExecutorService pool = Executors.newFixedThreadPool(100);
 		Gson gson = new Gson();
 		for (Airport airport : airports) {
 			String json = gson.toJson(airport);

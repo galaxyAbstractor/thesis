@@ -13,11 +13,6 @@ import java.util.Collections;
 
 public class HttpClient {
 
-	public static long totaltime = 0;
-	public static long requestsmade = 0;
-	public static long high = 0;
-	public static long low = 50000;
-
 	public static long[] sendPOST(String url, String params) throws IOException {
 		java.net.URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

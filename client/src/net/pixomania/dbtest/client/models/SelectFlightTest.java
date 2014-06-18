@@ -19,7 +19,7 @@ public class SelectFlightTest extends Test {
 	}
 
 	public void run(LinkedList<Flight> flights) {
-		ExecutorService pool = Executors.newFixedThreadPool(50);
+		ExecutorService pool = Executors.newFixedThreadPool(100);
 		Gson gson = new Gson();
 		for (Flight flight : flights) {
 			String url = Main.url + "/select/flight/deptime/" + flight.getDepTime() + "/" + System.currentTimeMillis() + "/" + Main.testing_database;

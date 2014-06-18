@@ -28,7 +28,6 @@ public class ConnectionPool {
 
 	public synchronized static void returnConnection(Connection con) {
 		pool.add(con);
-		//System.out.println("Returned connection!! " + pool.size()+" HASH"+ Integer.toHexString(con.hashCode()));
 	}
 
 	public  static void close() {

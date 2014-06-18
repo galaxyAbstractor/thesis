@@ -53,7 +53,6 @@ public class DB4o implements Database {
 			Airport originAirport = (Airport) result.next();
 
 			originAirport.getFlyingOut().add(flight);
-
 			flight.setOrigin(originAirport);
 
 			db.store(flight);

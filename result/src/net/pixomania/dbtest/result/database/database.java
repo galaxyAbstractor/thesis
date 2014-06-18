@@ -1,11 +1,14 @@
 package net.pixomania.dbtest.result.database;
 
+import java.io.*;
 import java.sql.*;
 
 public class Database {
 	private Connection conn;
+	private int selectmax;
 
-	public Database(){
+	public Database(int selectmax){
+		this.selectmax = selectmax;
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://alternia:3306/result", "root", "");
 		} catch (SQLException e) {
@@ -20,11 +23,14 @@ public class Database {
 			ResultSet rs = pst.executeQuery();
 			long total = 0;
 			long start = 0;
+			int i = 0;
 			while(rs.next()){
 				if(rs.getInt(2) == 0) {
 					start = rs.getLong(1);
 				} else if (rs.getInt(2) == 4) {
 					total += rs.getLong(1) - start;
+					i++;
+					if (i == this.selectmax) break;
 				}
 			}
 			return total;
@@ -34,6 +40,39 @@ public class Database {
 		return -1;
 	}
 
+	public void scatter(int testId) {
+		File f = new File("output.txt");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			PreparedStatement pst = conn.prepareStatement("SELECT timevalue, array_index FROM responses, responses_parts WHERE responses.test_id = ? AND responses_parts.response_id = responses.response_id");
+			pst.setInt(1, testId);
+			ResultSet rs = pst.executeQuery();
+			long total = 0;
+			long start = 0;
+			int i = 0;
+			while (rs.next()) {
+				if (rs.getInt(2) == 2) {
+					start = rs.getLong(1);
+				} else if (rs.getInt(2) == 3) {
+					bw.write(i + "\t" + (rs.getLong(1) - start) + "\n");
+					i++;
+					if (i == this.selectmax) break;
+				}
+			}
+
+			bw.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public long calculateDatabaseTotal(int testId) {
 		try {
 			PreparedStatement pst = conn.prepareStatement("SELECT timevalue, array_index FROM responses, responses_parts WHERE responses.test_id = ? AND responses_parts.response_id = responses.response_id");
@@ -41,11 +80,14 @@ public class Database {
 			ResultSet rs = pst.executeQuery();
 			long total = 0;
 			long start = 0;
+			int i = 0;
 			while (rs.next()) {
 				if (rs.getInt(2) == 2) {
 					start = rs.getLong(1);
 				} else if (rs.getInt(2) == 3) {
 					total += rs.getLong(1) - start;
+					i++;
+					if (i == this.selectmax) break;
 				}
 			}
 			return total;

@@ -142,9 +142,12 @@ public class MySQL implements Database {
 	@Override
 	public long joinSelectFlightByDest(String dest) {
 		try {
-			PreparedStatement pst = conn.prepareStatement("SELECT * FROM airports INNER JOIN ontime ON " +
-					"(airports.id = ontime.Dest) WHERE airports.iata = ?");
-			pst.setString(1, dest);
+			PreparedStatement destPst = conn.prepareStatement("SELECT id FROM airports WHERE iata = ?");
+			destPst.setString(1, dest);
+			ResultSet destResult = destPst.executeQuery();
+			destResult.next();
+			PreparedStatement pst = conn.prepareStatement("SELECT * FROM ontime WHERE Dest = ?");
+			pst.setInt(1, destResult.getInt("id"));
 			ResultSet result = pst.executeQuery();
 			result.next();
 			pst.close();
