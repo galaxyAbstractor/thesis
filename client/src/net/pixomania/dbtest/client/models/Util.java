@@ -1,16 +1,15 @@
 package net.pixomania.dbtest.client.models;
 
 import net.pixomania.dbtest.client.datatypes.Flight;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Util {
 
-	public static ArrayList<Flight> loadFlights(File csv) throws FileNotFoundException {
-		ArrayList<Flight> flights = new ArrayList<>();
+	public static LinkedList<Flight> loadFlights(File csv, int count) throws FileNotFoundException {
+		LinkedList<Flight> flights = new LinkedList<>();
 		Scanner scanner = new Scanner(csv);
 		scanner.useDelimiter(",");
 		scanner.nextLine();
@@ -50,7 +49,7 @@ public class Util {
 			flight.setLateAircraftDelay(checkInt(scanner1.next()));
 
 			flights.add(flight);
-			if(flights.size() == 80000) break;
+			if(flights.size() == count) break;
 		}
 
 		return flights;

@@ -1,42 +1,59 @@
 package net.pixomania.dbtest.client;
 
-import com.google.gson.Gson;
 import net.pixomania.dbtest.client.datatypes.Flight;
 import net.pixomania.dbtest.client.http.HttpClient;
-import net.pixomania.dbtest.client.models.Util;
-
+import net.pixomania.dbtest.client.models.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Date;
+import java.util.LinkedList;
+
 
 public class Main {
+	public static int testing_database = 1; // 1 = mysql, 2 = db4o, 3 = hibernate
+	public static String url = "http://192.168.1.3:9000";
 
 	public static void main(String[] args) {
 
 		try {
-/*
-			ArrayList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
-			Gson gson = new Gson();
-			Long time = System.currentTimeMillis();
-			for(Flight flight : flights) {
-				String json = gson.toJson(flight);
-				String url = "http://localhost:9000/insert/flight/one/" + System.currentTimeMillis();
-				HttpClient.sendPOST(url, json);
-				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
-			}
-			System.out.println((System.currentTimeMillis() - time)/1000 + " SECONDS");
 
-*/
-			ArrayList<Flight> flights = Util.loadFlights(new File("C:\\Users\\Victor\\dbtest\\client\\data\\1987.csv"));
-			Gson gson = new Gson();
-			Long time = System.currentTimeMillis();
-			for (Flight flight : flights) {
+			ConnectionPool.open(100);
+			for(int dataamount = 0; dataamount < 3; dataamount++) {
+				for (int repetitions = 0; repetitions < 4; repetitions++) {
+					for (int database = 1; database < 4; database++) {
+						testing_database = database;
+						int toload = 0;
 
-				String url = "http://localhost:9000/select/flight/deptime/" + flight.getDepTime() + "/" + System.currentTimeMillis();
-				HttpClient.sendGET(url);
-				System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+						switch (dataamount) {
+							case 0:
+								toload = 1000;
+								break;
+							case 1:
+								toload = 10000;
+								break;
+							case 2:
+								toload = 20000;
+								break;
+							case 3:
+								toload = 80000;
+								break;
+						}
+
+						InsertFlightTest insertFlightTest = new InsertFlightTest();
+
+						LinkedList<Flight> flights = Util.loadFlights(new File("1987.csv"), toload);
+						insertFlightTest.run(flights);
+						System.out.println("[" + new Date() + "] Insert flights test done, run: " + (repetitions + 1) + ", database: " + testing_database + ", data amount: " + toload);
+
+						SelectFlightTest selectFlightTest = new SelectFlightTest();
+						selectFlightTest.run(flights);
+						System.out.println("[" + new Date() + "] Select flights test done, run: " + (repetitions + 1) + ", database: " + testing_database + ", data amount: " + toload);
+
+						HttpClient.sendGET(url + "/purge");
+					}
+				}
 			}
-			System.out.println((System.currentTimeMillis() - time) / 1000 + " SECONDS");
+
+			ConnectionPool.close();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -13,8 +13,8 @@ import java.util.Collections;
 
 public class HttpClient {
 
-	public static void sendPOST(String url, String params) throws IOException {
-		java.net.URL obj = new URL(url);
+	public static long[] sendPOST(String url, String params) throws IOException {
+		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		//add reuqest header
@@ -39,21 +39,20 @@ public class HttpClient {
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
-		Long timeTaken = System.currentTimeMillis();
+		long timeTaken = System.currentTimeMillis();
 		in.close();
 
 		Gson gson = new Gson();
 
-		Long[] longArr = gson.fromJson(response.toString(), Long[].class);
-		Long[] newArr = Arrays.copyOf(longArr, longArr.length+1);
+		long[] longArr = gson.fromJson(response.toString(), long[].class);
+		long[] newArr = Arrays.copyOf(longArr, longArr.length+1);
 		newArr[newArr.length-1] = timeTaken;
 
-		//print result
-		System.out.println(gson.toJson(newArr) + " Request time: " + (newArr[newArr.length-1] - newArr[0]) + "ms");
+		return newArr;
 	}
 
-	public static void sendGET(String url) throws IOException {
-		java.net.URL obj = new URL(url);
+	public static long[] sendGET(String url) throws IOException {
+		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		//add reuqest header
@@ -71,16 +70,16 @@ public class HttpClient {
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
-		Long timeTaken = System.currentTimeMillis();
+		long timeTaken = System.currentTimeMillis();
 		in.close();
 
 		Gson gson = new Gson();
 
-		Long[] longArr = gson.fromJson(response.toString(), Long[].class);
-		Long[] newArr = Arrays.copyOf(longArr, longArr.length + 1);
+		long[] longArr = gson.fromJson(response.toString(), long[].class);
+		long[] newArr = Arrays.copyOf(longArr, longArr.length + 1);
 		newArr[newArr.length - 1] = timeTaken;
 
-		//print result
-		System.out.println(gson.toJson(newArr) + " Request time: " + (newArr[newArr.length - 1] - newArr[0]) + "ms");
+		return newArr;
+
 	}
 }
